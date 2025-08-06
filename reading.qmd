@@ -141,6 +141,63 @@ title: "Reading List"
   Not applicable to your current full-stack app (React + Node).
   Archived for possible future use in static site or documentation projects.
 
+Perfect. Here's your updated list, now integrated as **Phase 7** of your full web development roadmap:
+
+---
+
+### Phase 6 – Deployment & Infrastructure (DevOps Essentials)
+
+**Goal:** Learn how to confidently deploy, operate, and manage modern web applications using Linux, Docker, Kubernetes, and infrastructure as code (IaC).
+
+**Focus:** Practical DevOps skills — from Linux troubleshooting to containerization and orchestration — tailored to support your full-stack projects (e.g. MiniPost).
+
+---
+
+#### DevOps Mindset & Principles
+
+* *Grokking Continuous Delivery* – Christie Wilson
+  Clear and modern guide to DevOps thinking, continuous delivery, and deployment pipelines.
+
+> *Continuous Delivery* – Jez Humble & David Farley *(Reference only)*
+> Foundational theory book on DevOps culture and release practices. Optional background reading for later.
+
+---
+
+#### Linux & Server Operations
+
+* *DevOps Troubleshooting: Linux Server Best Practices* – Kyle Rankin
+  Hands-on guide for diagnosing and fixing Linux server issues. Still relevant and reliable for learning system-level debugging.
+* *Hands-On DevOps with Linux* – Alisson Machado de Menezes
+  Practical walkthrough of modern Linux DevOps tools (systemd, ufw, Docker basics, SSH). Complements the above with updated commands.
+
+> *DevOps for the Desperate* – Bradley Smith *(Optional)*
+> Lightweight crash course for new sysadmins. Good for warm-up or quick reference.
+
+---
+
+#### Containers & Docker
+
+* *Docker in Action* – Ian Miell & Aiden Hobson Sayers
+  Deep and practical introduction to Docker, containerization, image building, and orchestration basics.
+
+---
+
+#### Orchestration & Kubernetes
+
+* *Kubernetes: Up and Running* – Kelsey Hightower, Brendan Burns, Joe Beda
+  Best introductory book to Kubernetes. Written by creators, well-balanced between concept and action.
+
+---
+
+#### Infrastructure as Code
+
+* *Infrastructure as Code* – Kief Morris
+  Strategic guide to automating infrastructure in a scalable and maintainable way. Focuses on principles and practices.
+* *Terraform in Action* – Scott Winkler
+  Hands-on guide to writing and managing Terraform configurations. Pairs well with the above for practical IaC experience.
+
+---
+
 
 ### Alternative Frameworks (Rails, Phoenix, Flask, Django)
 
