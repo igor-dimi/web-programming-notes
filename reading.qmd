@@ -27,6 +27,8 @@ title: "Reading List"
   Massive, modern reference. Suitable for deep dives and architectural clarity.
 * *JavaScript: The Definitive Guide* – David Flanagan
   Authoritative reference text. Best used for looking up complex behavior, language features, or browser APIs.
+* Learning Javascript Design Paterns (2nd ed). Addy Osmani
+* Vibe Coding. Addy Osmani
 
 #### 4. Optional CSS Enrichment
 
@@ -38,6 +40,7 @@ title: "Reading List"
 * *The Joy of JavaScript* – Luis Atencio
   Read after Horstmann. Helps refine expressive, idiomatic, and functional JavaScript style.
   Encourages declarative thinking and better code practices.
+
 
 
 ### Phase 2: Frontend Frameworks (React Track)
