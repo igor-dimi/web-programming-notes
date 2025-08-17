@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -39,10 +39,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-bf132de45b538d253cd2e2da5fec6016.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d558773541b75318fdba2db46f940219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -133,7 +133,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <ul>
+  <li><a href="#oscillating-pendulum-drag-the-bob" id="toc-oscillating-pendulum-drag-the-bob" class="nav-link" data-scroll-target="#oscillating-pendulum-drag-the-bob">Oscillating Pendulum (drag the bob)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -175,8 +178,126 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Preface</h1>
 <p>This is a Quarto book.</p>
 <p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<section id="oscillating-pendulum-drag-the-bob" class="level2">
+<h2 class="anchored" data-anchor-id="oscillating-pendulum-drag-the-bob">Oscillating Pendulum (drag the bob)</h2>
+<div class="{=html}">
+<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.min.js"></script>
+<div id="pendulum-container">
+
+</div>
+<script>
+new p5(function(p) {
+  let originX, originY;
+  let r = 140;                 // arm length (pixels)
+  let angle = Math.PI / 4;     // initial angle (radians)
+  let aVel = 0.0;              // angular velocity
+  let aAcc = 0.0;              // angular acceleration
+  let gravity = 0.4;           // "g" (tune for feel)
+  let damping = 0.995;         // energy loss per frame
+  let bobRadius = 18;
+  let isDragging = false;
+
+  p.setup = function() {
+    const canvas = p.createCanvas(460, 320);
+    canvas.parent("pendulum-container");
+    originX = p.width / 2;
+    originY = 40;
+  };
+
+  p.draw = function() {
+    p.background(245);
+
+    if (!isDragging) {
+      // Simple pendulum dynamics: alpha = -(g/r) * sin(theta)
+      aAcc = (-gravity / r) * Math.sin(angle);
+      aVel += aAcc;
+      aVel *= damping;
+      angle += aVel;
+    }
+
+    const bobX = originX + r * Math.sin(angle);
+    const bobY = originY + r * Math.cos(angle);
+
+    // String
+    p.stroke(0);
+    p.line(originX, originY, bobX, bobY);
+
+    // Pivot
+    p.fill(0);
+    p.circle(originX, originY, 6);
+
+    // Bob
+    p.fill(isDragging ? 200 : 0);
+    p.stroke(0);
+    p.circle(bobX, bobY, bobRadius * 2);
+
+    // Hint
+    p.noStroke();
+    p.fill(60);
+    p.text("Drag the bob to set the angle", 12, p.height - 12);
+  };
+
+  // Helper: current bob position
+  function bobPos() {
+    return {
+      x: originX + r * Math.sin(angle),
+      y: originY + r * Math.cos(angle)
+    };
+  }
+
+  // Convert pointer position to angle (angle measured from vertical)
+  function angleFromPointer(mx, my) {
+    // We defined bobX = originX + r*sin(angle), bobY = originY + r*cos(angle)
+    // => angle = atan2(dx, dy)
+    const dx = mx - originX;
+    const dy = my - originY;
+    return Math.atan2(dx, dy);
+  }
+
+  // Mouse interactions
+  p.mousePressed = function() {
+    const { x, y } = bobPos();
+    if (p.dist(p.mouseX, p.mouseY, x, y) <= bobRadius + 4) {
+      isDragging = true;
+      aVel = 0; // stop motion while grabbing
+    }
+  };
+
+  p.mouseDragged = function() {
+    if (isDragging) {
+      angle = angleFromPointer(p.mouseX, p.mouseY);
+    }
+  };
+
+  p.mouseReleased = function() {
+    if (isDragging) isDragging = false;
+  };
+
+  // Touch interactions (mobile)
+  p.touchStarted = function() {
+    // Mirror mousePressed logic
+    const { x, y } = bobPos();
+    if (p.dist(p.mouseX, p.mouseY, x, y) <= bobRadius + 4) {
+      isDragging = true;
+      aVel = 0;
+    }
+  };
+
+  p.touchMoved = function() {
+    if (isDragging) {
+      angle = angleFromPointer(p.mouseX, p.mouseY);
+    }
+  };
+
+  p.touchEnded = function() {
+    if (isDragging) isDragging = false;
+  };
+});
+</script>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
