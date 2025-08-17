@@ -40,6 +40,7 @@ title: "Reading List"
 * *The Joy of JavaScript* – Luis Atencio
   Read after Horstmann. Helps refine expressive, idiomatic, and functional JavaScript style.
   Encourages declarative thinking and better code practices.
+* Learning Javascript Design Patterns - a Javascript and React Developer's Guide. *Addy Osmani*
 
 
 
